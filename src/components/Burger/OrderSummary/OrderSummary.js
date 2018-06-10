@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Aux from '../../../hoc/Aux';
 import Button from '../../UI/Button/Button';
+import { Link } from 'react-router-dom';
 
 class OrderSummary extends Component {
   componentWillUpdate() {
@@ -8,6 +9,16 @@ class OrderSummary extends Component {
   }
 
   render() {
+    const queryIngredients = [];
+    for (let param of Object.entries(this.props.ingredients)) {
+      queryIngredients.push(`${param[0]}=${param[1]}&`)
+    }
+    // console.log(queryIngredients.join('').slice(0,-1).toString());
+    // const queryIngredients = Object.entries(this.props.ingredients) 
+    //   .map(entry => {
+    //     return (
+    //     )
+    //   })
     const ingredientSummary = Object.keys(this.props.ingredients)
     .map(igKey => {
       return (
@@ -15,6 +26,7 @@ class OrderSummary extends Component {
         <span style={{textTransform: 'capitalize'}}>{igKey}</span>: {this.props.ingredients[igKey]}
       </li>
     )})
+    // console.log('ORDER SUMMARY: ', this.props.ingredients)
     return (
       <Aux>
         <h3>Your Order</h3>
@@ -25,7 +37,12 @@ class OrderSummary extends Component {
         </ul>
         <p>Continue to checkout?</p>
         <Button btnType="Danger" clicked={this.props.purchaseCancelled}>CANCEL</Button>
-        <Button btnType="Success" clicked={this.props.purchaseContinued}>CONTINUE</Button>
+        <Link to={{
+          pathname: '/checkout',
+          search: queryIngredients.join('').slice(0,-1).toString()
+          }}>
+          <Button btnType="Success">CONTINUE</Button>
+        </Link>
       </Aux>
     );
   }

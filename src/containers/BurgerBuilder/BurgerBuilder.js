@@ -99,13 +99,13 @@ class BurgerBuilder extends Component {
     //     this.setState({loading: false, purchasing: false})
     //   })
     // alert('You continue!');
+    console.log('[PurchaseHandler]', this.state.ingredients)
     this.props.history.push('/checkout');
   }
 
   componentDidMount () {
     axios.get('/ingredients.json')
       .then(response => {
-        console.log("GET INGREDIENTS " + response.data);
         this.setState({ingredients: response.data})
       })
       .catch(error => {
