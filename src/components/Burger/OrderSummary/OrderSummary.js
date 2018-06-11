@@ -9,10 +9,10 @@ class OrderSummary extends Component {
   }
 
   render() {
-    const queryIngredients = [];
-    for (let param of Object.entries(this.props.ingredients)) {
-      queryIngredients.push(`${param[0]}=${param[1]}&`)
-    }
+    // const queryIngredients = [];
+    // for (let param of Object.entries(this.props.ingredients)) {
+    //   queryIngredients.push(`${param[0]}=${param[1]}&`)
+    // }
     // console.log(queryIngredients.join('').slice(0,-1).toString());
     // const queryIngredients = Object.entries(this.props.ingredients) 
     //   .map(entry => {
@@ -37,12 +37,7 @@ class OrderSummary extends Component {
         </ul>
         <p>Continue to checkout?</p>
         <Button btnType="Danger" clicked={this.props.purchaseCancelled}>CANCEL</Button>
-        <Link to={{
-          pathname: '/checkout',
-          search: queryIngredients.join('').slice(0,-1).toString()
-          }}>
-          <Button btnType="Success">CONTINUE</Button>
-        </Link>
+        <Button btnType="Success" clicked={this.props.purchaseContinued}>CONTINUE</Button>
       </Aux>
     );
   }
