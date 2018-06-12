@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 import classes from './Order.css';
 
-const order = (props) => (
-  <div className={classes.Order}>
-    <p>Ingredients: Salad (1)</p>
-    <p>Price: <strong>USD 5.45</strong></p>
-  </div>
-)
+
+
+
+const order = (props) => {
+    const ingredientSummary = Object.keys(props.ingredients)
+    .map(igKey => {
+      return (
+      <li key={igKey}>
+        <span style={{textTransform: 'capitalize'}}>{igKey}</span>: {props.ingredients[igKey]}
+      </li>
+    )})
+    
+    return (
+      <div className={classes.Order}>
+        <p>Ingredients: </p>
+          {ingredientSummary}
+        <p>Price: <strong>{props.price}</strong></p>
+      </div>
+    )
+}
  
 export default order;
